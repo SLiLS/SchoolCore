@@ -3,17 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using School.BLL.DTO;
+using School.UI.ViewModels;
+using AutoMapper;
+using School.BLL.Services;
 
 namespace School.UI.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        StudentService studentService;
+        public ValuesController()
+        {
+            if (studentService == null)
+                studentService = new StudentService();
+
+        }
+
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<StudentViewModel> Get()
         {
-            return new string[] { "value1", "value2" };
+            var map = new MapperConfiguration(cfg => cfg.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
+            return map.Map<IEnumerable<StudentDTO>,IEnumerable<StudentViewModel>>(studentService.GetAll());
         }
 
         // GET api/values/5
