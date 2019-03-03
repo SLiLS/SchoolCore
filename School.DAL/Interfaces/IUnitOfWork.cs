@@ -8,7 +8,7 @@ namespace School.DAL.Interfaces
     {
         ITeacherRepository Teachers { get; }
         IStudentRepository Students { get; }
-        //IClassRepository Classes { get; }
+        IClassRepository SchoolClasses { get; }
         void Save();
     }
 }

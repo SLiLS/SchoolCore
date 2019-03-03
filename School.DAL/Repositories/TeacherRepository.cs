@@ -40,7 +40,7 @@ namespace School.DAL.Repositories
         }
         public void AddNewClass(ClassTeacher item)
         {
-            db.Teachers.Find(item.TeacherId).ClassTeachers.Add(new ClassTeacher { ClassId = item.ClassId, TeacherId = item.TeacherId });
+            db.Teachers.Find(item.TeacherId).ClassTeachers.Add(new ClassTeacher { SchoolClassId = item.SchoolClassId, TeacherId = item.TeacherId });
 
         }
     }

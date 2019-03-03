@@ -23,7 +23,7 @@ namespace School.UI.Controllers
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<StudentViewModel> Get()
+        public IEnumerable<StudentViewModel> GetStudent()
         {
             var map = new MapperConfiguration(cfg => cfg.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
             return map.Map<IEnumerable<StudentDTO>,IEnumerable<StudentViewModel>>(studentService.GetAll());
@@ -31,27 +31,41 @@ namespace School.UI.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public StudentViewModel GetStudent(int id)
         {
-            return "value";
+            var map = new MapperConfiguration(cfg => cfg.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
+            return map.Map<StudentDTO,StudentViewModel>(studentService.Get(id));
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void PostStudent([FromBody]StudentViewModel value)
         {
+            var map = new MapperConfiguration(cfg => cfg.CreateMap<StudentViewModel, StudentDTO>()).CreateMapper();
+            StudentDTO student= map.Map<StudentViewModel, StudentDTO>(value);
+            studentService.Create(student);
         }
+        
+        public IEnumerable<StudentViewModel> GetStudentSearch(int? schoolclass, string sex)
+        {
+            var map = new MapperConfiguration(c => c.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
 
+            return map.Map<IEnumerable<StudentDTO>, IEnumerable<StudentViewModel>>(studentService.Search(schoolclass, sex));
+        }
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void PutStudet(int id, [FromBody]StudentViewModel value)
         {
+            var map = new MapperConfiguration(cfg => cfg.CreateMap<StudentViewModel, StudentDTO>()).CreateMapper();
+            StudentDTO student = map.Map<StudentViewModel, StudentDTO>(value);
+            studentService.Update(student);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void DeleteStudent(int id)
         {
+            studentService.Delete(id);
         }
     }
 }

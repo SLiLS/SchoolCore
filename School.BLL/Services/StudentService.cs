@@ -6,6 +6,7 @@ using School.BLL.DTO;
 using School.DAL.Repositories;
 using School.DAL.Entities;
 using AutoMapper;
+using System.Linq;
 
 namespace School.BLL.Services
 {
@@ -22,7 +23,7 @@ namespace School.BLL.Services
 
             uow.Students.Create(new Student
             {
-                ClassId = item.ClassId,
+                SchoolClassId = item.SchoolClassId,
                 MiddleName = item.MiddleName,
                 Name = item.Name,
                 Sex = item.Sex,
@@ -41,7 +42,7 @@ namespace School.BLL.Services
         {
             uow.Students.Update(new Student
             {
-                ClassId = item.ClassId,
+                SchoolClassId = item.SchoolClassId,
                 MiddleName = item.MiddleName,
                 Name = item.Name,
                 Sex = item.Sex,
@@ -51,12 +52,28 @@ namespace School.BLL.Services
             });
             uow.Save();
         }
+        public IEnumerable<StudentDTO> Search(int? schoolclass, string sex)
+        {
+            IEnumerable<Student> students = uow.Students.GetAll();
+            schoolclass = (schoolclass ?? 0);
+            if (schoolclass != 0)
+            {
+                students = students.Where(s => s.SchoolClass.Id == schoolclass);
+            }
+            if (sex != null && sex != "")
+            {
+                students = students.Where(s => s.Sex.Contains(sex));
+            }
+            var map = new MapperConfiguration(c => c.CreateMap<Student, StudentDTO>().ForMember(s => s.ClassName, sx => sx.MapFrom(w => w.SchoolClass.Name)).ForMember(s => s.SchoolClassId, sx => sx.MapFrom(w => w.SchoolClass.Id))).CreateMapper();
+            return map.Map<IEnumerable<Student>, IEnumerable<StudentDTO>>(students);
+
+        }
         public StudentDTO Get(int id)
         {
             Student student = uow.Students.Get(id);
             return new StudentDTO
             {
-                ClassId = student.ClassId,
+                SchoolClassId = student.SchoolClassId,
                 SurName = student.SurName,
                 Id = student.Id,
                 MiddleName = student.MiddleName,
@@ -67,7 +84,7 @@ namespace School.BLL.Services
         }
         public IEnumerable<StudentDTO> GetAll()
         {
-            var map = new MapperConfiguration(c => c.CreateMap<Student, StudentDTO>()).CreateMapper();
+            var map = new MapperConfiguration(c => c.CreateMap<Student, StudentDTO>().ForMember(dto=>dto.ClassName,s=>s.MapFrom(a=>a.SchoolClass.Name))).CreateMapper();
             return map.Map<IEnumerable<Student>, IEnumerable<StudentDTO>>(uow.Students.GetAll());
         }
         public void Dispose()

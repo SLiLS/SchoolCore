@@ -17,14 +17,14 @@ namespace School.DAL.EF
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=SLILSY\SQLEXPRESS;Database=SchoolDB;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=SchoolDB;Trusted_Connection=True;");
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
           
             modelBuilder.Entity<ClassTeacher>()
-                .HasKey(t => new { t.ClassId, t.TeacherId });
+                .HasKey(t => new { t.SchoolClassId, t.TeacherId });
 
             modelBuilder.Entity<ClassTeacher>()
                 .HasOne(sc => sc.Teacher)
@@ -34,17 +34,17 @@ namespace School.DAL.EF
             modelBuilder.Entity<ClassTeacher>()
                 .HasOne(sc => sc.SchoolClass)
                 .WithMany(c => c.ClassTeachers)
-                .HasForeignKey(sc => sc.ClassId);
+                .HasForeignKey(sc => sc.SchoolClassId);
 
             modelBuilder.Entity<Student>().HasData(
                  new Student[]
                  {
-                    new Student{Id=1,Name="Игорь",MiddleName="Николаевич",Sex="мужской",SurName="Николаев",ClassId=1 },
-                    new Student{Id=2,Name="Евгений",MiddleName="Владимирович",Sex="мужской",SurName="Рожков",ClassId=2 },
-                    new Student{Id=3,Name="Анатолий",MiddleName="Алексеевич",Sex="мужской",SurName="Иванов",ClassId=3 },
-                    new Student{Id=4,Name="Евгения",MiddleName="Николаевна",Sex="женский",SurName="Рожкова",ClassId=4 },
-                    new Student{Id=5,Name="Анастасия",MiddleName="Алексеевна",Sex="женский",SurName="Иванова",ClassId=5 },
-                    new Student{Id=6,Name="Анна",MiddleName="Олеговна",Sex="женский",SurName="Николаева",ClassId=6 }
+                    new Student{Id=1,Name="Игорь",MiddleName="Николаевич",Sex="мужской",SurName="Николаев",SchoolClassId=1 },
+                    new Student{Id=2,Name="Евгений",MiddleName="Владимирович",Sex="мужской",SurName="Рожков",SchoolClassId=2 },
+                    new Student{Id=3,Name="Анатолий",MiddleName="Алексеевич",Sex="мужской",SurName="Иванов",SchoolClassId=3 },
+                    new Student{Id=4,Name="Евгения",MiddleName="Николаевна",Sex="женский",SurName="Рожкова",SchoolClassId=4 },
+                    new Student{Id=5,Name="Анастасия",MiddleName="Алексеевна",Sex="женский",SurName="Иванова",SchoolClassId=5 },
+                    new Student{Id=6,Name="Анна",MiddleName="Олеговна",Sex="женский",SurName="Николаева",SchoolClassId=6 }
                  });
             modelBuilder.Entity<SchoolClass>().HasData(
                 new SchoolClass[]
@@ -60,12 +60,12 @@ namespace School.DAL.EF
             modelBuilder.Entity<ClassTeacher>().HasData(
                 new ClassTeacher[]
                 {
-                    new ClassTeacher{ClassId=1,TeacherId=1 },
-                    new ClassTeacher{ClassId=2,TeacherId=2 },
-                    new ClassTeacher{ClassId=3,TeacherId=3 },
-                    new ClassTeacher{ClassId=4,TeacherId=4 },
-                    new ClassTeacher{ClassId=5,TeacherId=5 },
-                    new ClassTeacher{ClassId=6,TeacherId=6 }
+                    new ClassTeacher{SchoolClassId=1,TeacherId=1 },
+                    new ClassTeacher{SchoolClassId=2,TeacherId=2 },
+                    new ClassTeacher{SchoolClassId=3,TeacherId=3 },
+                    new ClassTeacher{SchoolClassId=4,TeacherId=4 },
+                    new ClassTeacher{SchoolClassId=5,TeacherId=5 },
+                    new ClassTeacher{SchoolClassId=6,TeacherId=6 }
                 });
             modelBuilder.Entity<Teacher>().HasData(
                 new Teacher[]

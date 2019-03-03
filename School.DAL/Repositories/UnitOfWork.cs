@@ -12,7 +12,7 @@ namespace School.DAL.Repositories
         private SchoolContext db;
         private TeacherRepository teacherRepository;
         private StudentRepository studentRepository;
-
+        private ClassRepository classRepository;
 
 
 
@@ -28,6 +28,15 @@ namespace School.DAL.Repositories
                 if (studentRepository == null)
                     studentRepository = new StudentRepository(db);
                 return studentRepository;
+            }
+        }
+        public IClassRepository SchoolClasses
+        {
+            get
+            {
+                if (classRepository == null)
+                    classRepository = new ClassRepository(db);
+                return classRepository;
             }
         }
         public ITeacherRepository Teachers

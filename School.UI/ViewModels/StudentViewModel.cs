@@ -12,7 +12,7 @@ namespace School.UI.ViewModels
         public string MiddleName { set; get; }
         public string SurName { get; set; }
         public string Sex { get; set; }
-        public int ClassId { get; set; }
+        public int SchoolClassId { get; set; }
         public string ClassName { get; set; }
     }
 }
