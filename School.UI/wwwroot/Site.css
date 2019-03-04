@@ -34,6 +34,9 @@ textarea {
     opacity: 0.6;
     z-index: 100;
 }
+.dropdownlist{
+text-align:center;
+}
 
 .modal {
     display: none;
@@ -61,5 +64,14 @@ textarea {
 }
 
 .open-modal-btn {
+    cursor: pointer;
+}
+input{
+    cursor:pointer;
+}
+.removeLink {
+    cursor: pointer;
+}
+.editLink {
     cursor: pointer;
 }

@@ -19,7 +19,16 @@ namespace School.DAL.Repositories
         }
         public IEnumerable<SchoolClass> GetAll()
         {
+            var s = db.Students.GroupBy(cf => cf.SchoolClassId).Count();
             return db.SchoolClasses;
+        }
+
+        public int StudentCount(int id)
+        {
+            int count=0;
+            count += db.Students.Where(s=>s.SchoolClassId==id).Count();
+
+            return count;
         }
     }
 }

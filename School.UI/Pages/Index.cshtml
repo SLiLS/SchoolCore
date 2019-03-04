@@ -12,6 +12,7 @@
     <title>Ученики</title>
 
     <link href="~/Site.css" rel="stylesheet">
+    <script src="~/StudentJQ.js"></script>
     
 </head>
 <body >
@@ -34,22 +35,22 @@
 
             <h4>Класс:</h4>
             <input type="text" name="schoolClass" /><br /><br />
-            <input class="btn btn-success" type="submit" value="Поиск" />
+            <input class="btn btn-success searchStudent" type="submit" value="Поиск" />
            </form>
 
 </div>
-    <div id="wrapper" class="col-lg-12">
+    <div id="wrapper" class="col-lg-8">
         <div class="cover"></div>
         <div class="modal">
             <div class="content">
                 <h2>Добавление</h2><br /><br />
                 <form name="createStudentForm">
-                    
-                    <input type="text" placeholder="Имя"><br /><br />
-                    <input type="text" placeholder="Отчество"><br /><br />
-                    <input type="text" placeholder="Фамилия"><br /><br />
-                    <input type="text" placeholder="Пол"><br /><br />
-                    <select class="form-control align-items-center" id="ClassesDropdown" name="schoolClassesDropdown"></select>  
+                    <input type="hidden" name="id" value="0" />
+                    <input name="name" type="text" placeholder="Имя"><br /><br />
+                    <input name="middleName" type="text" placeholder="Отчество"><br /><br />
+                    <input name="surName" type="text" placeholder="Фамилия"><br /><br />
+                    <input name="sex"  type="text" placeholder="Пол"><br /><br />
+                    <select style="text-align:center;" id="ClassesDropdown" name="schoolClassId"></select> <br /><br /> 
                     <input type="submit" />
                 </form>
             </div>
@@ -76,162 +77,7 @@
 
     </table>
 
-    <script>
-        var wrap = $('#wrapper'),
-            btn = $('.open-modal-btn'),
-            modal = $('.cover, .modal, .content');
-
-        btn.on('click', function () {
-            modal.fadeIn();
-        });
-
-        // close modal
-        $('.modal').click(function () {
-            wrap.on('click', function (event) {
-                var select = $('.content');
-                if ($(event.target).closest(select).length)
-                    return;
-                modal.fadeOut();
-                wrap.unbind('click');
-            });
-        });
-        // Получение всех пользователей
-        function GetStudents() {
-            $.ajax({
-                url: '/api/values',
-                type: 'GET',
-                contentType: "application/json",
-                success: function (students) {
-                    var rows = "";
-                    $.each(students, function (index, student) {
-                        // добавляем полученные элементы в таблицу
-                        rows += row(student);
-                    })
-                    $("table tbody").append(rows);
-                }
-            });
-        }
-        // Получение одного пользователя
-        function GetStudent(id) {
-            $.ajax({
-                url: '/api/values/' + id,
-                type: 'GET',
-                contentType: "application/json",
-                success: function (student) {
-                    var form = document.forms["studentForm"];
-                    form.elements["id"].value = student.id;
-                    form.elements["name"].value = student.name;
-                    form.elements["middleName"].value = student.middleName;
-                    form.elements["sex"].value = student.sex;
-                    form.elements["className"].value = student.className;
-                }
-            });
-        }
-        function GetStudentsSearch(schoolclass,sex)
-        {
-            $.ajax({
-                url: '/api/values/' + id,
-                type: 'GET',
-
-
-            })
-
-        }
-        // Добавление пользователя
-        function Createstudent(studentName, studentAge) {
-            $.ajax({
-                url: "api/students",
-                contentType: "application/json",
-                method: "POST",
-                data: JSON.stringify({
-                    name: studentName,
-                    age: studentAge
-                }),
-                success: function (student) {
-                    reset();
-                    $("table tbody").append(row(student));
-                }
-            })
-        }
-        // Изменение пользователя
-        function Editstudent(studentId, studentName, studentmiddleName,studentsurName,studentsex,) {
-            $.ajax({
-                url: "api/values",
-                contentType: "application/json",
-                method: "PUT",
-                data: JSON.stringify({
-                    id: studentId,
-                    name: studentName,
-                    age: studentAge
-                }),
-                success: function (student) {
-                    reset();
-                    $("tr[data-rowid='" + student.id + "']").replaceWith(row(student));
-                }
-            })
-        }
-
-        // сброс формы
-        function reset() {
-            var form = document.forms["studentForm"];
-            form.reset();
-            form.elements["id"].value = 0;
-        }
-
-        // Удаление пользователя
-        function Deletestudent(id) {
-            $.ajax({
-                url: "api/values/" + id,
-                contentType: "application/json",
-                method: "DELETE",
-                success: function (student) {
-                    $("tr[data-rowid='" + student.id + "']").remove();
-                }
-            })
-        }
-        // создание строки для таблицы
-        var row = function (student) {
-            return "<tr data-rowid='" + student.id + "'><td>" + student.id + "</td>" +
-                "<td>" + student.name + "</td> <td>" + student.middleName + "</td>" +
-                "<td>" + student.surName + "</td> <td>" + student.sex + "</td>" +
-                "<td>" + student.className + "</td>" +
-
-                "<td><a class='editLink' data-id='" + student.id + "'>Изменить</a> | " +
-                "<a class='removeLink' data-id='" + student.id + "'>Удалить</a></td></tr>";
-        }
-        // сброс значений формы
-        $("#reset").click(function (e) {
-
-            e.preventDefault();
-            reset();
-        })
-
-        // отправка формы
-        $("form").submit(function (e) {
-            e.preventDefault();
-            var id = this.elements["id"].value;
-            var name = this.elements["name"].value;
-            var age = this.elements["age"].value;
-            if (id == 0)
-                Createstudent(name, age);
-            else
-                Editstudent(id, name, age);
-        });
-
-        // нажимаем на ссылку Изменить
-        $("body").on("click", ".editLink", function () {
-            var id = $(this).data("id");
-            Getstudent(id);
-        })
-        // нажимаем на ссылку Удалить
-        $("body").on("click", ".removeLink", function () {
-            var id = $(this).data("id");
-            Deletestudent(id);
-        })
-
-        // загрузка пользователей
-        GetStudents();
-
-    </script>
+   
 </body>
+
 </html>

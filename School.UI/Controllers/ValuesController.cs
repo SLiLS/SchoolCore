@@ -13,11 +13,13 @@ namespace School.UI.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        StudentService studentService;
+        ServiceCreator serviceCreator;
         public ValuesController()
         {
-            if (studentService == null)
-                studentService = new StudentService();
+            if (serviceCreator == null)
+                serviceCreator = new ServiceCreator();
+            
+            
 
         }
 
@@ -25,8 +27,9 @@ namespace School.UI.Controllers
         [HttpGet]
         public IEnumerable<StudentViewModel> GetStudent()
         {
-            var map = new MapperConfiguration(cfg => cfg.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
-            return map.Map<IEnumerable<StudentDTO>,IEnumerable<StudentViewModel>>(studentService.GetAll());
+            var map = new MapperConfiguration(c => c.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
+
+            return map.Map<IEnumerable<StudentDTO>, IEnumerable<StudentViewModel>>(serviceCreator.studentService().GetAll());
         }
 
         // GET api/values/5
@@ -34,38 +37,37 @@ namespace School.UI.Controllers
         public StudentViewModel GetStudent(int id)
         {
             var map = new MapperConfiguration(cfg => cfg.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
-            return map.Map<StudentDTO,StudentViewModel>(studentService.Get(id));
+            return map.Map<StudentDTO,StudentViewModel>(serviceCreator.studentService().Get(id));
         }
 
         // POST api/values
         [HttpPost]
-        public void PostStudent([FromBody]StudentViewModel value)
+        public IActionResult PostStudent([FromBody]StudentViewModel value)
         {
             var map = new MapperConfiguration(cfg => cfg.CreateMap<StudentViewModel, StudentDTO>()).CreateMapper();
             StudentDTO student= map.Map<StudentViewModel, StudentDTO>(value);
-            studentService.Create(student);
+            serviceCreator.studentService().Create(student);
+            return Ok(value);
         }
         
-        public IEnumerable<StudentViewModel> GetStudentSearch(int? schoolclass, string sex)
-        {
-            var map = new MapperConfiguration(c => c.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
-
-            return map.Map<IEnumerable<StudentDTO>, IEnumerable<StudentViewModel>>(studentService.Search(schoolclass, sex));
-        }
+     
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void PutStudet(int id, [FromBody]StudentViewModel value)
+        public IActionResult PutStudent(int id, [FromBody]StudentViewModel value)
         {
             var map = new MapperConfiguration(cfg => cfg.CreateMap<StudentViewModel, StudentDTO>()).CreateMapper();
             StudentDTO student = map.Map<StudentViewModel, StudentDTO>(value);
-            studentService.Update(student);
+            serviceCreator.studentService().Update(student);
+            return Ok(value);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void DeleteStudent(int id)
+        public IActionResult DeleteStudent(int id)
         {
-            studentService.Delete(id);
+          var student=  serviceCreator.studentService().Get(id);
+            serviceCreator.studentService().Delete(id);
+            return Ok(student);
         }
     }
 }

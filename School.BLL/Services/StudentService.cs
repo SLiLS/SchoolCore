@@ -7,16 +7,18 @@ using School.DAL.Repositories;
 using School.DAL.Entities;
 using AutoMapper;
 using System.Linq;
+using School.DAL.Interfaces;
+using System.Linq;
 
 namespace School.BLL.Services
 {
    public class StudentService : IStudentService
     {
-        UnitOfWork uow;
-        public StudentService()
+        IUnitOfWork uow { get; set; }
+        public StudentService(IUnitOfWork unitOfWork)
         {
-            if (uow == null)
-                uow = new UnitOfWork();
+
+            uow = unitOfWork;
         }
         public void Create(StudentDTO item)
         {
@@ -52,20 +54,20 @@ namespace School.BLL.Services
             });
             uow.Save();
         }
-        public IEnumerable<StudentDTO> Search(int? schoolclass, string sex)
+        public IEnumerable<StudentDTO> Search(string schoolclass, string sex)
         {
             IEnumerable<Student> students = uow.Students.GetAll();
-            schoolclass = (schoolclass ?? 0);
-            if (schoolclass != 0)
+            
+            if (schoolclass != null && schoolclass != "")
             {
-                students = students.Where(s => s.SchoolClass.Id == schoolclass);
+                students = students.Where(s => s.Sex.Contains(schoolclass));
             }
-            if (sex != null && sex != "")
+            if (sex != null  && sex!="Все")
             {
                 students = students.Where(s => s.Sex.Contains(sex));
             }
             var map = new MapperConfiguration(c => c.CreateMap<Student, StudentDTO>().ForMember(s => s.ClassName, sx => sx.MapFrom(w => w.SchoolClass.Name)).ForMember(s => s.SchoolClassId, sx => sx.MapFrom(w => w.SchoolClass.Id))).CreateMapper();
-            return map.Map<IEnumerable<Student>, IEnumerable<StudentDTO>>(students);
+            return map.Map<IEnumerable<Student>, IEnumerable<StudentDTO>>(uow.Students.GetAll());
 
         }
         public StudentDTO Get(int id)

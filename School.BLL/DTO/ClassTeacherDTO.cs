@@ -8,5 +8,6 @@ namespace School.BLL.DTO
     {
         public int ClassId { get; set; }
         public int TeacherId { get; set; }
+
     }
 }

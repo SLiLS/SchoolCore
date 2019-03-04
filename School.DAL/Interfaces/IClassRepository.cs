@@ -9,5 +9,6 @@ namespace School.DAL.Interfaces
     {
 
         IEnumerable<SchoolClass> GetAll();
+        int StudentCount(int id);
     }
 }

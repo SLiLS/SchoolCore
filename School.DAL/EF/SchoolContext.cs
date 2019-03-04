@@ -44,17 +44,23 @@ namespace School.DAL.EF
                     new Student{Id=3,Name="Анатолий",MiddleName="Алексеевич",Sex="мужской",SurName="Иванов",SchoolClassId=3 },
                     new Student{Id=4,Name="Евгения",MiddleName="Николаевна",Sex="женский",SurName="Рожкова",SchoolClassId=4 },
                     new Student{Id=5,Name="Анастасия",MiddleName="Алексеевна",Sex="женский",SurName="Иванова",SchoolClassId=5 },
-                    new Student{Id=6,Name="Анна",MiddleName="Олеговна",Sex="женский",SurName="Николаева",SchoolClassId=6 }
+                    new Student{Id=6,Name="Анна",MiddleName="Олеговна",Sex="женский",SurName="Николаева",SchoolClassId=6 },
+                    new Student{Id=7,Name="Игорь",MiddleName="Николаевич",Sex="мужской",SurName="Николаев",SchoolClassId=2 },
+                    new Student{Id=8,Name="Евгений",MiddleName="Владимирович",Sex="мужской",SurName="Рожков",SchoolClassId=2 },
+                    new Student{Id=9,Name="Анатолий",MiddleName="Алексеевич",Sex="мужской",SurName="Иванов",SchoolClassId=4 },
+                    new Student{Id=10,Name="Евгения",MiddleName="Николаевна",Sex="женский",SurName="Рожкова",SchoolClassId=4 },
+                    new Student{Id=11,Name="Анастасия",MiddleName="Алексеевна",Sex="женский",SurName="Иванова",SchoolClassId=5 },
+                    new Student{Id=12,Name="Анна",MiddleName="Олеговна",Sex="женский",SurName="Николаева",SchoolClassId=4}
                  });
             modelBuilder.Entity<SchoolClass>().HasData(
                 new SchoolClass[]
                 {
-                    new SchoolClass{Id=1, Name="1"},
-                    new SchoolClass{ Id=2,Name="2"},
-                    new SchoolClass{ Id=3,Name="3"},
-                    new SchoolClass{ Id=4,Name="4"},
-                    new SchoolClass{Id=5, Name="5"},
-                    new SchoolClass{ Id=6,Name="6"}
+                    new SchoolClass{Id=1, Name="1А"},
+                    new SchoolClass{ Id=2,Name="2Б"},
+                    new SchoolClass{ Id=3,Name="3Ф"},
+                    new SchoolClass{ Id=4,Name="4А"},
+                    new SchoolClass{Id=5, Name="5А"},
+                    new SchoolClass{ Id=6,Name="6А"}
                    
                 });
             modelBuilder.Entity<ClassTeacher>().HasData(
@@ -66,6 +72,9 @@ namespace School.DAL.EF
                     new ClassTeacher{SchoolClassId=4,TeacherId=4 },
                     new ClassTeacher{SchoolClassId=5,TeacherId=5 },
                     new ClassTeacher{SchoolClassId=6,TeacherId=6 }
+                    
+              
+
                 });
             modelBuilder.Entity<Teacher>().HasData(
                 new Teacher[]
@@ -75,8 +84,12 @@ namespace School.DAL.EF
                     new Teacher{Id=3,Name="Василий",MiddleName="Петрович",SurName="Математиков",Position="учитель" },
                     new Teacher{Id=4,Name="Валентина",MiddleName="Михайловна",SurName="Погромова",Position="учитель" },
                     new Teacher{Id=5,Name="Анна",MiddleName="Сергеевна",SurName="Дубойская",Position="завуч" },
-                    new Teacher{Id=6,Name="Анна",MiddleName="Сергеевна",SurName="Дубойская",Position="завуч" }
-                 
+                    new Teacher{Id=6,Name="Анна",MiddleName="Сергеевна",SurName="Дубойская",Position="завуч" },
+                    new Teacher{Id=7,Name="Василий",MiddleName="Петрович",SurName="Математиков",Position="учитель" },
+                    new Teacher{Id=8,Name="Валентина",MiddleName="Михайловна",SurName="Погромова",Position="учитель" },
+                    new Teacher{Id=9,Name="Анна",MiddleName="Сергеевна",SurName="Дубойская",Position="завуч" },
+                    new Teacher{Id=10,Name="Анна",MiddleName="Сергеевна",SurName="Дубойская",Position="завуч" }
+
                 });
 
             base.OnModelCreating(modelBuilder);

@@ -43,5 +43,19 @@ namespace School.DAL.Repositories
             db.Teachers.Find(item.TeacherId).ClassTeachers.Add(new ClassTeacher { SchoolClassId = item.SchoolClassId, TeacherId = item.TeacherId });
 
         }
+
+        public int GetStudents(int id)
+        {
+            int count=0;
+
+            
+            foreach (var item in db.SchoolClasses.Where(s=>s.Id==id))
+            {
+                count += item.Students.Where(s => s.SchoolClassId == id).Count();
+            }
+
+            
+            return count;
+        }
     }
 }

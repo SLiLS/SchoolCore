@@ -11,7 +11,7 @@ namespace School.BLL.Intefaces
         void Create(StudentDTO item);
         void Update(StudentDTO item);
         StudentDTO Get(int id);
-        IEnumerable<StudentDTO> Search(int? schoolclass, string sex);
+        IEnumerable<StudentDTO> Search(string schoolclass, string sex);
         IEnumerable<StudentDTO> GetAll();
         void Dispose();
     }

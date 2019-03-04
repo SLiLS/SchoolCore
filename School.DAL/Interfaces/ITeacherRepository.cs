@@ -9,5 +9,6 @@ namespace School.DAL.Interfaces
    public interface ITeacherRepository : IRepository<Teacher>
     {
         void AddNewClass(ClassTeacher item);
+        int GetStudents(int id);
     }
 }

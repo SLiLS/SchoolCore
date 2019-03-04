@@ -1,26 +1,29 @@
-﻿@page 
+﻿@page
 @{
-    ViewData["Title"] = "Teachers";
+    ViewData["Title"] = "SchoolClasses";
     Layout = "~/Pages/_Layout.cshtml";
 }
+<!DOCTYPE html>
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Классы</title>
+
     <link href="~/Site.css" rel="stylesheet">
-    <script src="~/TeachersJQ.js"></script>
+    <script src="~/ClassesJQ.js"></script>
+
 </head>
 <body>
 
-    <h1>Список учителей</h1>
-
+    <h1>Список Классов</h1>
+  
     <table class="table table-condensed col-lg-12 table-bordered">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Имя</th>
-                <th>Отчество</th>
-                <th>Фамилия</th>
-                <th>Должность</th>
                 <th>Количество учеников</th>
-                <th>Администрирование  </th>
+          
             </tr>
         </thead>
         <tbody></tbody>

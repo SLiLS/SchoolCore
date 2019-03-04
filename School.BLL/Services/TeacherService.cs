@@ -13,11 +13,11 @@ namespace School.BLL.Services
 {
   public  class TeacherService : ITeacherService
     {
-        UnitOfWork uow;
-        public TeacherService()
+        IUnitOfWork uow { get; set; }
+        public TeacherService(IUnitOfWork unitOfWork)
         {
-            if (uow == null)
-                uow = new UnitOfWork();
+
+            uow = unitOfWork;
         }
         public void Create(TeacherDTO item)
         {
@@ -50,8 +50,24 @@ namespace School.BLL.Services
         }
         public IEnumerable<TeacherDTO> GetAll()
         {
-            var map = new MapperConfiguration(c => c.CreateMap<Teacher, TeacherDTO>()).CreateMapper();
-            return map.Map<IEnumerable<Teacher>, IEnumerable<TeacherDTO>>(uow.Teachers.GetAll());
+            //var map = new MapperConfiguration(c => c.CreateMap<Teacher, TeacherDTO>()).CreateMapper();
+            //return map.Map<IEnumerable<Teacher>, IEnumerable<TeacherDTO>>(uow.Teachers.GetAll());
+            List<TeacherDTO> ListDTO = new List<TeacherDTO>();
+            List<Teacher> list = uow.Teachers.GetAll().ToList();
+            foreach (Teacher item in list)
+            {
+                TeacherDTO teacherDTO = new TeacherDTO
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    StudentCount = uow.Teachers.GetStudents(item.Id),
+                    MiddleName = item.MiddleName,
+                    SurName = item.SurName,
+                    Position = item.Position,                    
+                };
+                ListDTO.Add(teacherDTO);
+            }
+            return ListDTO;
         }
         public void AddNewClass(ClassTeacherDTO item)
         {

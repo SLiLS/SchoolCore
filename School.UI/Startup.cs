@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using School.BLL.Intefaces;
+using School.BLL.Services;
 
 namespace School.UI
 {
@@ -38,8 +40,8 @@ namespace School.UI
             {
                 app.UseDeveloperExceptionPage();
             }
-           
-          
+        
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();
