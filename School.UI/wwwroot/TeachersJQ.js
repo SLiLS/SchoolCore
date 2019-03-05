@@ -22,7 +22,6 @@ var row = function (teacher) {
         "<td>" + teacher.surName + "</td> <td>" + teacher.middleName + "</td>" +
         "<td>" + teacher.surName + "</td> <td>" + teacher.position + "</td>" +
         "<td>" + teacher.studentCount + "</td>" +
-
-        "<td><a class='editLink open-modal-btn' data-id='" + teacher.id + "'>Изменить</a> | " +
-        "<a class='removeLink' data-id='" + teacher.id + "'>Удалить</a></td></tr>";
+        "<td><a class='editLink open-modal-btn btn btn-success' data-id='" + teacher.id + "'>Изменить</a> | " +
+        "<a class='removeLink btn btn-success' data-id='" + teacher.id + "'>Удалить</a></td></tr>";
 }

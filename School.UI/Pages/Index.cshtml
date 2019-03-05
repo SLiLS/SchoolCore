@@ -15,8 +15,8 @@
     <script src="~/StudentJQ.js"></script>
     
 </head>
-<body >
-    
+<body>
+
     <h1>Список учеников</h1>
     <div class="col-lg-12">
         <form name="searchingStudentForm">
@@ -35,52 +35,61 @@
 
             <h4>Класс:</h4>
             <input type="text" name="schoolClass" /><br /><br />
-            <input class="btn btn-success searchStudent" type="submit" value="Поиск" />
-           </form>
+            <input class="btn btn-success searchStudent form-control" type="submit" value="Поиск" /><br /><br />
+        </form>
 
-</div>
-    <div id="wrapper" class="col-lg-8">
-        <div class="cover">
-            <div class="modal">
-
-                <div class="content">
-
-                    <h2>Добавление</h2><br /><br />
-                    <form name="createStudentForm">
-                        <input type="hidden" name="id" value="0" />
-                        <input name="name" type="text" placeholder="Имя"><br /><br />
-                        <input name="middleName" type="text" placeholder="Отчество"><br /><br />
-                        <input name="surName" type="text" placeholder="Фамилия"><br /><br />
-                        <input name="sex" type="text" placeholder="Пол"><br /><br />
-                        <select style="text-align:center;" id="ClassesDropdown" name="schoolClassId"></select> <br /><br />
-                        <input type="submit" />
-                    </form>
-                </div>
-            </div>
-        </div>
-        <br />
-        <div class="cnt col-lg-12">
-            <button class="open-modal-btn btn btn-success">Добавить ученика</button><br /><br />
-        </div>
     </div>
-    <br />
-    <table class="table table-condensed col-lg-12 table-bordered">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Фамилия</th>
-            <th>Пол</th>
-            <th>Класс</th>
-            <th>Администрирование  </th>
-        </tr>
-        </thead>
-        <tbody></tbody>
 
-    </table>
 
-   
+
+
+    <div class="col-lg-12">
+        <div id="boxes">
+            <div id="dialog" class="window">
+                <h2>Добавление</h2><br /><br />
+                <form name="createStudentForm" id="createStudentForm">
+                    <input type="hidden" name="id" value="0" />
+
+                    <input  name="name" type="text" placeholder="Имя"><br /><br />
+                    <input name="middleName" type="text" placeholder="Отчество"><br /><br />
+                    <input name="surName" type="text" placeholder="Фамилия"><br /><br />
+                    <input name="sex" type="text" placeholder="Пол"><br /><br />
+                    <select style="text-align:center;" id="ClassesDropdown" name="schoolClassId"></select> <br /><br />                    
+                    
+                        <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
+                        <a id="reset" class="btn btn-sm btn-primary">Сбросить</a>
+                    
+
+                </form>
+                <span><a href="#" class="close" >Закрыть его</a></span>
+            </div>
+            <div id="mask"></div>
+        </div>
+        
+</div>
+    <div class="cnt col-lg-12">
+        <a href="#dialog"  name="modal" class=" btnstudentcreate open-modal-btn btn btn-success">Добавить ученика</a><br /><br />
+      
+
+
+        <br />
+        <table class="table table-condensed col-lg-12 table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Фамилия</th>
+                    <th>Пол</th>
+                    <th>Класс</th>
+                    <th>Администрирование  </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+
+    </div>
 </body>
 
 </html>

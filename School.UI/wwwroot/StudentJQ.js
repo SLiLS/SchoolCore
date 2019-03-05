@@ -1,6 +1,7 @@
 ﻿
+
 $(document).ready(function () {
-    GetStudents();
+    GetStudents();  
     $.ajax({
         type: "GET",
         url: "/api/SchoolClasses",
@@ -15,36 +16,43 @@ $(document).ready(function () {
     });
 });
 
-$('.modal').click(function () {
-    wrap.on('click', function (event) {
-        var select = $('.content');
-        if ($(event.target).closest(select).length)
-            return;
-        modal.fadeOut();
-        wrap.unbind('click');
-    });
+ $(document).ready(function() {
+        //select all the a tag with name equal to modal
+        $('a[name=modal]').click(function (e) {
+            //Cancel the link behavior
+            e.preventDefault();
+            //Get the A tag
+            var id = $(this).attr('href');
+            //Get the screen height and width
+            var maskHeight = $(document).height();
+            var maskWidth = $(window).width();
+            //Set heigth and width to mask to fill up the whole screen
+            $('#mask').css({ 'width': maskWidth, 'height': maskHeight });
+            //transition effect
+            $('#mask').fadeIn(1000);
+            $('#mask').fadeTo("slow", 0.8);
+            //Get the window height and width
+            var winH = $(window).height();
+            var winW = $(window).width();
+            //Set the popup window to center
+            $(id).css('top', winH / 2 - $(id).height() / 1);
+            $(id).css('left', winW / 2 - $(id).width() / 1);
+            //transition effect
+            $(id).fadeIn(2000);
+        });
+    //if close button is clicked
+    $('.window .close').click(function (e) {
+        //Cancel the link behavior
+        e.preventDefault();
+    $('#mask, .window').hide();
+ });
+ //if mask is clicked
+ $('#mask').click(function () {
+        $(this).hide();
+    $('.window').hide();
+ });
 });
 
-
-//Modal
-var wrap = $('#wrapper'),
-    btn = $('.open-modal-btn'),
-    modal = $(".cover .modal .content");
-
-btn.on('click', function () {
-    modal.fadeIn();
-});
-
-// close modal
-$('.modal').click(function () {
-    wrap.on('click', function (event) {
-        var select = $('.content');
-        if ($(event.target).closest(select).length)
-            return;
-        modal.fadeOut();
-        wrap.unbind('click');
-    });
-});
 // Получение всех студентов
 function GetStudents() {
     $.ajax({
@@ -52,6 +60,7 @@ function GetStudents() {
         type: 'GET',
         contentType: "application/json",
         success: function (students) {
+            
             var rows = "";
             $.each(students, function (index, student) {
                 // добавляем полученные элементы в таблицу
@@ -84,6 +93,7 @@ function GetStudent(id) {
         type: 'GET',
         contentType: "application/json",
         success: function (student) {
+          
             var form = document.forms["createStudentForm"];
             form.elements["id"].value = student.id;
             form.elements["name"].value = student.name;
@@ -109,12 +119,13 @@ function Createstudent(studentname, studentmiddleName, studentsurName, studentse
             sex: studentsex,
             schoolClassId: studentschoolClassId
         }),
-        success: function (student) {
+        success: function (student) {      
             reset();
+        
             $("table tbody").append(row(student));
         }
     })
-}
+};
 // Изменение пользователя
 function Editstudent(studentId, studentName, studentmiddleName, studentsurName, studentsex, schoolClassId) {
     $.ajax({
@@ -130,11 +141,12 @@ function Editstudent(studentId, studentName, studentmiddleName, studentsurName, 
             schoolClassId: schoolClassId
         }),
         success: function (student) {
+          
             reset();
             $("tr[data-rowid='" + student.id + "']").replaceWith(row(student));
         }
     })
-}
+};
 
 
 
@@ -149,7 +161,7 @@ function Deletestudent(id) {
 
         }
     })
-}
+};
 // создание строки для таблицы
 var row = function (student) {
     return "<tr data-rowid='" + student.id + "'><td>" + student.id + "</td>" +
@@ -157,16 +169,18 @@ var row = function (student) {
         "<td>" + student.surName + "</td> <td>" + student.sex + "</td>" +
         "<td>" + student.className + "</td>" +
 
-        "<td><a class='editLink open-modal-btn' data-id='" + student.id + "'>Изменить</a> | " +
-        "<a class='removeLink' data-id='" + student.id + "'>Удалить</a></td></tr>";
-}
+        "<td><a href='#dialog'  name='modal'  class='editLink open-modal-btn btn btn-success' data-id='" + student.id + "'>Изменить</a> | " +
+        "<a class='removeLink btn btn-success' data-id='" + student.id + "'>Удалить</a></td></tr>";
+};
 
 // отправка формы
-$(".createStudentForm").submit(function (e) {
+$("form").submit(function (e) {
+    alert("otpravka");
     e.preventDefault();
-    var id = this.elements["id"].value;
-    var name = this.elements["name"].value;
-    var middleName = this.elements["middleName"].value;
+  
+    var id = document.forms["createStudentForm"].elements["id"].value;
+    var name = document.forms["createStudentForm"].elements["name"].value;
+    var middleName = document.forms["createStudentForm"].elements["middleName"].value;
     var surName = this.elements["surName"].value;
     var sex = this.elements["sex"].value;
     var classId = this.elements["schoolClassId"].value;
@@ -179,22 +193,34 @@ $(".createStudentForm").submit(function (e) {
 // нажимаем на ссылку Изменить
 $("body").on("click", ".editLink", function () {
     var id = $(this).data("id");
-
-    $(".cover, .modal, .content").fadeIn();
-    Getstudent(id);
-})
+    
+    GetStudent(id);
+   
+});
 
 $("body").on("click", ".searchStudent", function () {
     var sex = $(this).data("sex");
     var schoolClass = $(this).data("schoolClass");
 
-  GetStudentSearch(sex,schoolClass)
-    
-})
+    GetStudentSearch(sex, schoolClass)
+
+});
+// сброс значений формы
+$("#reset").click(function (e) {
+
+    e.preventDefault();
+    reset();
+});
+// сброс формы
+function reset() {
+    var form = document.forms["userForm"];
+    form.reset();
+    form.elements["id"].value = 0;
+}
 // нажимаем на ссылку Удалить
 $("body").on("click", ".removeLink", function () {
     var id = $(this).data("id");
     Deletestudent(id);
-})
+});
 
     

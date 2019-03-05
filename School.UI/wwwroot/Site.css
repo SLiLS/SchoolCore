@@ -29,36 +29,51 @@ textarea {
 text-align:center;
 }
 
-.modal {
-    display: none;
+a:hover {
+    color: #ccc;
+    text-decoration: none
+}
+
+#mask {
     position: fixed;
-   margin-top:60px;
-    right: 0;
-    bottom: 0;
     left: 0;
-    text-align: center;
-    overflow-x: auto;
-    overflow-y: scroll;
-    padding: 20px;
-    z-index: 200;
-}
-
-.content {
+    top: 0;
+    z-index: 9000;
+    background-color: #000;
     display: none;
-    width: 100%;
-    min-width: 200px;
-    width: 100%;
-    position: relative;
-    background-color: #FAFAFA;
-    z-index: 300;
-    padding: 50px 0;
+    font-family: Verdana;
 }
 
-.open-modal-btn {
-    cursor: pointer;
+#boxes .window {
+    position: absolute;
+    height: 700px;
+    width: 600px;
+    display: none;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    padding: 20px;
+    text-align: center;
+    font-size: 25px;
 }
-input{
-    cursor:pointer;
+
+#boxes #dialog {
+    width: 450px;
+    height: 703px;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.close {
+    float: right;
+    /*margin-top: 148px;*/
+}
+
+.searchStudent {
+    text-align: center;
+}
+input {
+    cursor: pointer;
 }
 .removeLink {
     cursor: pointer;
