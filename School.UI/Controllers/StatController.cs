@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
 using School.BLL.DTO;
 using School.UI.ViewModels;
 using AutoMapper;
@@ -12,26 +11,28 @@ using School.BLL.Services;
 
 namespace School.UI.Controllers
 {
+
+
     [Produces("application/json")]
-    [Route("api/SchoolClasses")]
-    public class SchoolClassesController : Controller
+    [Route("api/Stat")]
+    public class StatController : Controller
     {
+
         ServiceCreator serviceCreator;
-        public SchoolClassesController()
+        public StatController()
         {
             if (serviceCreator == null)
                 serviceCreator = new ServiceCreator();
         }
-        // GET: api/SchoolClasses
+        // GET: api/Stat
         [HttpGet]
-        public IEnumerable<SchoolClassViewModel> GetSchoolClass()
+        public IEnumerable<TeacherViewModel> GetTop()
         {
-            var map = new MapperConfiguration(cfg => cfg.CreateMap<SchoolClassDTO, SchoolClassViewModel>()).CreateMapper();
-            return map.Map<IEnumerable<SchoolClassDTO>, IEnumerable<SchoolClassViewModel>>(serviceCreator.schoolClassService().GetAll());
+            var map = new MapperConfiguration(cfg => cfg.CreateMap<TeacherDTO, TeacherViewModel>()).CreateMapper();
+            return map.Map<IEnumerable<TeacherDTO>, IEnumerable<TeacherViewModel>>(serviceCreator.teacherService().GetTop3());
 
         }
 
-     
-    
+
     }
 }

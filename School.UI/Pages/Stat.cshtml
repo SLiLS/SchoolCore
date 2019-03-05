@@ -1,15 +1,16 @@
-﻿@page 
+﻿@page
+
 @{
-    ViewData["Title"] = "Teachers";
+    ViewData["Title"] = "Stat";
     Layout = "~/Pages/_Layout.cshtml";
 }
 <head>
     <link href="~/Site.css" rel="stylesheet">
-    <script src="~/TeachersJQ.js"></script>
+    <script src="~/StatJQ.js"></script>
 </head>
 <body>
 
-    <h1>Список учителей</h1>
+    <h1>Топ 3 учителей</h1>
 
     <table class="table table-condensed col-lg-6 table-bordered">
         <thead>
@@ -20,7 +21,7 @@
                 <th>Фамилия</th>
                 <th>Должность</th>
                 <th>Количество учеников</th>
-                <th>Администрирование  </th>
+               
             </tr>
         </thead>
         <tbody></tbody>

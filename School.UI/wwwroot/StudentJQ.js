@@ -1,5 +1,6 @@
-﻿GetStudents();
+﻿
 $(document).ready(function () {
+    GetStudents();
     $.ajax({
         type: "GET",
         url: "/api/SchoolClasses",
@@ -14,10 +15,21 @@ $(document).ready(function () {
     });
 });
 
+$('.modal').click(function () {
+    wrap.on('click', function (event) {
+        var select = $('.content');
+        if ($(event.target).closest(select).length)
+            return;
+        modal.fadeOut();
+        wrap.unbind('click');
+    });
+});
+
+
 //Modal
 var wrap = $('#wrapper'),
     btn = $('.open-modal-btn'),
-    modal = $('.cover, .modal, .content');
+    modal = $(".cover .modal .content");
 
 btn.on('click', function () {
     modal.fadeIn();
@@ -50,9 +62,9 @@ function GetStudents() {
     });
 }
 //Поиск
-function GetStudentSearch(sex, schoolClass) {
+function GetStudentSearch(studentsex, schoolClass) {
     $.ajax({
-        url: '/api/values' + sex + schoolClass,
+        url: '/api/values/'+studentsex+'/'+schoolClass,      
         type: 'GET',
         contentType: "application/json",
         success: function (students) {
@@ -124,12 +136,7 @@ function Editstudent(studentId, studentName, studentmiddleName, studentsurName, 
     })
 }
 
-// сброс формы
-function reset() {
-    var form = document.forms["createStudentForm"];
-    form.reset();
-    form.elements["id"].value = 0;
-}
+
 
 // Удаление пользователя
 function Deletestudent(id) {
@@ -153,13 +160,6 @@ var row = function (student) {
         "<td><a class='editLink open-modal-btn' data-id='" + student.id + "'>Изменить</a> | " +
         "<a class='removeLink' data-id='" + student.id + "'>Удалить</a></td></tr>";
 }
-// сброс значений формы
-$("#reset").click(function (e) {
-
-    e.preventDefault();
-    reset();
-})
-
 
 // отправка формы
 $(".createStudentForm").submit(function (e) {
@@ -182,19 +182,14 @@ $("body").on("click", ".editLink", function () {
 
     $(".cover, .modal, .content").fadeIn();
     Getstudent(id);
-
-
-
 })
-//Поиск
-$("body").on("click", ".searchStudent", function () {
-    var id = $(this).data("id");
-    var wrap = $('#wrapper'),
-        btn = $('.open-modal-btn'),
-        modal = $('.cover, .modal, .content');
 
-    modal.fadeIn();
-    Deletestudent(id);
+$("body").on("click", ".searchStudent", function () {
+    var sex = $(this).data("sex");
+    var schoolClass = $(this).data("schoolClass");
+
+  GetStudentSearch(sex,schoolClass)
+    
 })
 // нажимаем на ссылку Удалить
 $("body").on("click", ".removeLink", function () {

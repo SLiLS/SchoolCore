@@ -49,9 +49,10 @@ namespace School.DAL.Repositories
             int count=0;
 
             
-            foreach (var item in db.SchoolClasses.Where(s=>s.Id==id))
+          
+            foreach (var item in db.Teachers.Find(id).ClassTeachers.Where(s=>s.TeacherId==id))
             {
-                count += item.Students.Where(s => s.SchoolClassId == id).Count();
+                count += db.Students.Where(s => s.SchoolClassId == item.SchoolClassId).Count();
             }
 
             

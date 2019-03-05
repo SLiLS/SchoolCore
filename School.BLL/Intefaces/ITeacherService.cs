@@ -13,6 +13,8 @@ namespace School.BLL.Intefaces
         void AddNewClass(ClassTeacherDTO item);
         TeacherDTO Get(int id);
         IEnumerable<TeacherDTO> GetAll();
+        IEnumerable<TeacherDTO> GetTop3();
+      
         void Dispose();
     }
 }

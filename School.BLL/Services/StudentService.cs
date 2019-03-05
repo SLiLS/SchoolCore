@@ -8,7 +8,7 @@ using School.DAL.Entities;
 using AutoMapper;
 using System.Linq;
 using School.DAL.Interfaces;
-using System.Linq;
+
 
 namespace School.BLL.Services
 {
@@ -54,13 +54,13 @@ namespace School.BLL.Services
             });
             uow.Save();
         }
-        public IEnumerable<StudentDTO> Search(string schoolclass, string sex)
+        public IEnumerable<StudentDTO> Search(string sex, string schoolclass)
         {
             IEnumerable<Student> students = uow.Students.GetAll();
             
             if (schoolclass != null && schoolclass != "")
             {
-                students = students.Where(s => s.Sex.Contains(schoolclass));
+                students = students.Where(s => s.SchoolClass.Name.Contains(schoolclass));
             }
             if (sex != null  && sex!="Все")
             {
@@ -94,5 +94,6 @@ namespace School.BLL.Services
             uow.Dispose();
 
         }
+        
     }
 }

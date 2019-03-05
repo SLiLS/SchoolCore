@@ -21,6 +21,7 @@ namespace School.BLL.Services
         }
         public void Create(TeacherDTO item)
         {
+            
             var map = new MapperConfiguration(c => c.CreateMap<TeacherDTO, Teacher>()).CreateMapper();
             Teacher teacher = map.Map<TeacherDTO, Teacher>(item);
             uow.Teachers.Create(teacher);
@@ -83,6 +84,12 @@ namespace School.BLL.Services
             var s = uow.SchoolClasses.GetAll().Where(w => w.Id == id);
             var map = new MapperConfiguration(c => c.CreateMap<SchoolClass, SchoolClassDTO>()).CreateMapper();
             return map.Map<IEnumerable<SchoolClass>, IEnumerable<SchoolClassDTO>>(s);
+        }
+
+        public IEnumerable<TeacherDTO> GetTop3()
+        {
+            var teachersDTO = GetAll();
+            return teachersDTO.OrderByDescending(s=>s.StudentCount).Take(3);
         }
     }
 }

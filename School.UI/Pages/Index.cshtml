@@ -1,7 +1,7 @@
 ﻿@page
 @model School.UI.Pages.IndexModel
 @{
-    Layout = "_Layout";
+    Layout = "~/Pages/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -10,8 +10,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Ученики</title>
-
-    <link href="~/Site.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Site.css" />
+ 
     <script src="~/StudentJQ.js"></script>
     
 </head>
@@ -40,19 +40,22 @@
 
 </div>
     <div id="wrapper" class="col-lg-8">
-        <div class="cover"></div>
-        <div class="modal">
-            <div class="content">
-                <h2>Добавление</h2><br /><br />
-                <form name="createStudentForm">
-                    <input type="hidden" name="id" value="0" />
-                    <input name="name" type="text" placeholder="Имя"><br /><br />
-                    <input name="middleName" type="text" placeholder="Отчество"><br /><br />
-                    <input name="surName" type="text" placeholder="Фамилия"><br /><br />
-                    <input name="sex"  type="text" placeholder="Пол"><br /><br />
-                    <select style="text-align:center;" id="ClassesDropdown" name="schoolClassId"></select> <br /><br /> 
-                    <input type="submit" />
-                </form>
+        <div class="cover">
+            <div class="modal">
+
+                <div class="content">
+
+                    <h2>Добавление</h2><br /><br />
+                    <form name="createStudentForm">
+                        <input type="hidden" name="id" value="0" />
+                        <input name="name" type="text" placeholder="Имя"><br /><br />
+                        <input name="middleName" type="text" placeholder="Отчество"><br /><br />
+                        <input name="surName" type="text" placeholder="Фамилия"><br /><br />
+                        <input name="sex" type="text" placeholder="Пол"><br /><br />
+                        <select style="text-align:center;" id="ClassesDropdown" name="schoolClassId"></select> <br /><br />
+                        <input type="submit" />
+                    </form>
+                </div>
             </div>
         </div>
         <br />

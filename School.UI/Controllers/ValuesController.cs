@@ -28,7 +28,7 @@ namespace School.UI.Controllers
         public IEnumerable<StudentViewModel> GetStudent()
         {
             var map = new MapperConfiguration(c => c.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
-
+            
             return map.Map<IEnumerable<StudentDTO>, IEnumerable<StudentViewModel>>(serviceCreator.studentService().GetAll());
         }
 
@@ -38,6 +38,14 @@ namespace School.UI.Controllers
         {
             var map = new MapperConfiguration(cfg => cfg.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
             return map.Map<StudentDTO,StudentViewModel>(serviceCreator.studentService().Get(id));
+        }
+
+        [HttpGet("{sex}/{schoolClass}")]
+        public IEnumerable<StudentViewModel> GetStudentSeacrh(string sex,string schoolClass)
+        {
+            var map = new MapperConfiguration(c => c.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
+
+            return map.Map<IEnumerable<StudentDTO>, IEnumerable<StudentViewModel>>(serviceCreator.studentService().GetAll());
         }
 
         // POST api/values
