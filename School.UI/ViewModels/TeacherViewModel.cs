@@ -13,6 +13,6 @@ namespace School.UI.ViewModels
         public string SurName { get; set; }
         public string Position { get; set; }
    
-        public int StudentCount { get; set; }
+        public int? StudentCount { get; set; }
     }
 }

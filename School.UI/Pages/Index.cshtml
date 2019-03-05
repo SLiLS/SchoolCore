@@ -3,7 +3,6 @@
 @{
     Layout = "~/Pages/_Layout.cshtml";
 }
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +10,9 @@
     <meta name="viewport" content="width=device-width" />
     <title>Ученики</title>
     <link rel="stylesheet" href="~/Site.css" />
- 
+
     <script src="~/StudentJQ.js"></script>
-    
+
 </head>
 <body>
 
@@ -52,26 +51,26 @@
                 <form name="createStudentForm" id="createStudentForm">
                     <input type="hidden" name="id" value="0" />
 
-                    <input  name="name" type="text" placeholder="Имя"><br /><br />
+                    <input name="name" type="text" placeholder="Имя"><br /><br />
                     <input name="middleName" type="text" placeholder="Отчество"><br /><br />
                     <input name="surName" type="text" placeholder="Фамилия"><br /><br />
                     <input name="sex" type="text" placeholder="Пол"><br /><br />
-                    <select style="text-align:center;" id="ClassesDropdown" name="schoolClassId"></select> <br /><br />                    
-                    
-                        <button type="submit" class="btn studentsend btn-sm btn-primary">Сохранить</button>
-                        <a id="reset" class="btn btn-sm btn-primary">Сбросить</a>
-                    
+                    <select style="text-align:center;" id="ClassesDropdown" name="schoolClassId"></select> <br /><br />
+
+                    <button type="submit" class="btn studentsend btn-sm btn-primary">Сохранить</button>
+                    <a id="reset" class="btn btn-sm btn-primary">Сбросить</a>
+
 
                 </form>
-                <span><a href="#" class="close" >Закрыть его</a></span>
+                <span><a href="#" class="close">Закрыть его</a></span>
             </div>
             <div id="mask"></div>
         </div>
         <a href="#dialog" name="modal" class=" btnstudentcreate open-modal-btn btn btn-success">Добавить ученика</a><br /><br />
 
-</div>
+    </div>
     <div class="cnt col-lg-12">
-       
+
 
 
         <br />

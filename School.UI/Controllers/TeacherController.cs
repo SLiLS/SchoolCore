@@ -56,8 +56,8 @@ namespace School.UI.Controllers
         }
 
         // PUT: api/Teacher/5
-        [HttpPut("{id}")]
-        public IActionResult PutTeacher(int id, [FromBody]TeacherViewModel value)
+        [HttpPut]
+        public IActionResult PutTeacher([FromBody]TeacherViewModel value)
         {
             var map = new MapperConfiguration(cfg => cfg.CreateMap<TeacherViewModel, TeacherDTO>()).CreateMapper();
             TeacherDTO teacher = map.Map<TeacherViewModel, TeacherDTO>(value);
