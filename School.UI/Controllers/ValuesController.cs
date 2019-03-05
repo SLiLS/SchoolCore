@@ -45,7 +45,8 @@ namespace School.UI.Controllers
         {
             var map = new MapperConfiguration(c => c.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
 
-            return map.Map<IEnumerable<StudentDTO>, IEnumerable<StudentViewModel>>(serviceCreator.studentService().GetAll());
+            var a = map.Map<IEnumerable<StudentDTO>, IEnumerable<StudentViewModel>>(serviceCreator.studentService().Search(sex,schoolClass));
+            return a;
         }
 
         // POST api/values
